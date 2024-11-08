@@ -50,21 +50,7 @@
 
       <aside class="ad-section">
         <h2 style="margin-bottom: 1rem; font-size: 1.5rem">Trending Now 🔥</h2>
-        <div class="ad-container">
-          <script type="text/javascript">
-            atOptions = {
-              key: "6cf0cd1226ec0cbbffe67b6518c505e8",
-              format: "iframe",
-              height: 300,
-              width: 160,
-              params: {},
-            };
-          </script>
-          <script
-            type="text/javascript"
-            src="//www.highperformanceformat.com/6cf0cd1226ec0cbbffe67b6518c505e8/invoke.js"
-          ></script>
-        </div>
+        <div id="ads-container"></div>
       </aside>
     </main>
 
@@ -385,6 +371,34 @@
 
       // Chargement initial
       loadShorts();
+
+      function loadAds() {
+        console.log("📦 Chargement des annonces");
+        const container = document.getElementById("ads-container");
+        container.innerHTML = ""; // Clear existing content
+
+        const atOptionsScript = document.createElement("script");
+        atOptionsScript.type = "text/javascript";
+        atOptionsScript.text = `
+            atOptions = {
+                'key' : '6cf0cd1226ec0cbbffe67b6518c505e8',
+                'format' : 'iframe',
+                'height' : 300,
+                'width' : 160,
+                'params' : {}
+            };
+        `;
+        container.appendChild(atOptionsScript);
+
+        const invokeScript = document.createElement("script");
+        invokeScript.type = "text/javascript";
+        invokeScript.src =
+          "//www.highperformanceformat.com/6cf0cd1226ec0cbbffe67b6518c505e8/invoke.js";
+        container.appendChild(invokeScript);
+      }
+
+      // Appeler loadAds après le chargement de la page
+      window.addEventListener("load", loadAds);
     </script>
   </body>
 </html>

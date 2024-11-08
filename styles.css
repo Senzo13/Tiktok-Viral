@@ -153,17 +153,6 @@ body {
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
 }
 
-.ad-section {
-  background: rgba(255, 255, 255, 0.1);
-  padding: 1.5rem;
-  border-radius: 15px;
-  position: sticky;
-  top: 204px;
-  height: fit-content;
-  backdrop-filter: blur(5px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
 .ad-container {
   width: 100%;
   min-height: 300px;
@@ -320,4 +309,34 @@ body {
   text-align: center;
   margin: 1rem 0;
   color: white;
+}
+
+.ad-section {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 1.5rem;
+  border-radius: 15px;
+  position: sticky;
+  top: 204px;
+  height: fit-content;
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  min-width: 200px; /* Assez large pour la pub */
+}
+
+#ads-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+  margin: 1rem 0;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.3);
+  margin-bottom: 1rem;
+  border-radius: 15px;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+#ads-container iframe {
+  border: none;
+  max-width: 100%;
 }
