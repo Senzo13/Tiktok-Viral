@@ -459,29 +459,55 @@
       loadShorts();
 
       function loadAds() {
-        console.log("📦 Chargement des annonces");
         const container = document.getElementById("ads-container");
-        container.innerHTML = ""; // Clear existing content
+        container.innerHTML = ""; // Nettoie le contenu existant
 
+        // Détermine si c'est un mobile
+        const isMobile = window.innerWidth <= 768;
+
+        // Configuration des publicités selon le device
+        const adConfig = isMobile
+          ? {
+              key: "b8e0b16c1f8d03572440e84eab5eedb6",
+              width: 300,
+              height: 250,
+            }
+          : {
+              key: "6cf0cd1226ec0cbbffe67b6518c505e8",
+              width: 160,
+              height: 300,
+            };
+
+        // Crée le script pour les options
         const atOptionsScript = document.createElement("script");
         atOptionsScript.type = "text/javascript";
         atOptionsScript.text = `
-            atOptions = {
-                'key' : '6cf0cd1226ec0cbbffe67b6518c505e8',
-                'format' : 'iframe',
-                'height' : 300,
-                'width' : 160,
-                'params' : {}
-            };
-        `;
+        atOptions = {
+            'key' : '${adConfig.key}',
+            'format' : 'iframe',
+            'height' : ${adConfig.height},
+            'width' : ${adConfig.width},
+            'params' : {}
+        };
+    `;
         container.appendChild(atOptionsScript);
 
+        // Crée le script d'invocation
         const invokeScript = document.createElement("script");
         invokeScript.type = "text/javascript";
-        invokeScript.src =
-          "//www.highperformanceformat.com/6cf0cd1226ec0cbbffe67b6518c505e8/invoke.js";
+        invokeScript.src = `//www.highperformanceformat.com/${adConfig.key}/invoke.js`;
         container.appendChild(invokeScript);
       }
+
+      // Appeler loadAds au chargement de la page
+      window.addEventListener("load", loadAds);
+
+      // Recharger les publicités lors du redimensionnement de la fenêtre
+      let resizeTimeout;
+      window.addEventListener("resize", () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(loadAds, 250); // Délai pour éviter trop d'appels
+      });
 
       // Appeler loadAds après le chargement de la page
       window.addEventListener("load", loadAds);
